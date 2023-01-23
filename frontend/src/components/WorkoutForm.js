@@ -22,9 +22,15 @@ const WorkoutForm = () => {
       } 
     })
     const json = await response.json()
+    console.log(json)
 
     if (!response.ok) {
-      setError(json.error)
+      const errorMessage = json.error
+      const missingFields = errorMessage.match(/`(.*?)`/g)
+      const charToRemove = '`'
+      missingFields.split('').filter(char => char !== charToRemove).join('')
+      console.log(missingFields)
+      setError(missingFields)
     }
 
     if (response.ok) {
