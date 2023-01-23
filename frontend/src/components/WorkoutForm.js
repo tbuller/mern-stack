@@ -25,12 +25,7 @@ const WorkoutForm = () => {
     console.log(json)
 
     if (!response.ok) {
-      const errorMessage = json.error
-      const missingFields = errorMessage.match(/`(.*?)`/g)
-      const charToRemove = '`'
-      missingFields.split('').filter(char => char !== charToRemove).join('')
-      console.log(missingFields)
-      setError(missingFields)
+      setError(json.error + '. The missing field(s) are: ' + json.emptyFields.join(', '))
     }
 
     if (response.ok) {
